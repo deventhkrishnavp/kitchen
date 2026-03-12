@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}R Vaibhava Cafe | Fresh & Delicious Food{% endblock %}</title>
+    <meta name="description" content="Enjoy tasty shawarma, porota, beef roast and more in S.N. Puram at R Vaibhava Cafe. Premium restaurant experience.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            red: '#8B0000',
+                            black: '#1A1A1A',
+                            cream: '#FFFDD0',
+                            gold: '#D4AF37'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .glass-nav {
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .hero-gradient {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="bg-brand-cream text-brand-black font-sans">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 glass-nav border-b border-brand-red/20" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="{% url 'home' %}" class="flex items-center gap-2">
+                        <span class="text-2xl font-serif font-bold text-brand-red tracking-tighter uppercase italic">R Vaibhava</span>
+                        <span class="text-xs font-bold bg-brand-red text-white px-2 py-1 rounded">CAFE</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="text-white hover:text-brand-red font-semibold transition-colors">Home</a>
+                    <a href="{% url 'home' %}#about" class="text-white hover:text-brand-red font-semibold transition-colors">About</a>
+                    <a href="{% url 'menu' %}" class="text-white hover:text-brand-red font-semibold transition-colors">Menu</a>
+                    <a href="{% url 'gallery' %}" class="text-white hover:text-brand-red font-semibold transition-colors">Gallery</a>
+                    <a href="{% url 'reviews' %}" class="text-white hover:text-brand-red font-semibold transition-colors">Reviews</a>
+                    <a href="{% url 'contact' %}" class="text-white hover:text-brand-red font-semibold transition-colors">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="tel:+918891879877" class="text-white font-bold hover:text-brand-red transition-colors">
+                        <i class="fas fa-phone-alt mr-2"></i>+91 88918 79877
+                    </a>
+                    <a href="{% url 'order' %}" class="bg-brand-red text-white px-6 py-2.5 rounded-full font-bold hover:bg-red-800 transition-all transform hover:scale-105 shadow-lg">
+                        Order Online
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-black border-t border-brand-red/20 animate__animated animate__fadeInDown">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{% url 'home' %}" class="block px-3 py-4 text-white hover:text-brand-red font-bold text-center border-b border-white/5">Home</a>
+                <a href="{% url 'home' %}#about" class="block px-3 py-4 text-white hover:text-brand-red font-bold text-center border-b border-white/5">About</a>
+                <a href="{% url 'menu' %}" class="block px-3 py-4 text-white hover:text-brand-red font-bold text-center border-b border-white/5">Menu</a>
+                <a href="{% url 'order' %}" class="block px-3 py-4 text-brand-red hover:text-white font-bold text-center border-b border-white/5 uppercase">Order Online</a>
+                <a href="{% url 'contact' %}" class="block px-3 py-4 text-white hover:text-brand-red font-bold text-center">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="font-serif text-3xl font-bold text-brand-red mb-6 uppercase italic">R Vaibhava Cafe</h3>
+                    <p class="text-gray-400 max-w-md leading-relaxed mb-6">
+                        Experience the finest shawarma, porota, and beef roast in S.N. Puram. Our passion for quality ingredients and authentic recipes makes us the favorite late-night spot in the region.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-red transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-red transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-red transition-all transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-brand-red">Quick Links</h4>
+                    <ul class="space-y-4">
+                        <li><a href="{% url 'home' %}" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="{% url 'menu' %}" class="text-gray-400 hover:text-white transition-colors">Menu</a></li>
+                        <li><a href="{% url 'gallery' %}" class="text-gray-400 hover:text-white transition-colors">Gallery</a></li>
+                        <li><a href="{% url 'order' %}" class="text-gray-400 hover:text-white transition-colors">Order Now</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-brand-red">Contact Us</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-brand-red mt-1"></i>
+                            <span>S.N. Puram, Kerala 680665</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt text-brand-red"></i>
+                            <span>+91 88918 79877</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-clock text-brand-red"></i>
+                            <span>Open until 2:00 AM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2024 R Vaibhava Cafe. All rights reserved. Designed for Premium Hospitality.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/cart.js' %}"></script>
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-2xl');
+                nav.classList.remove('h-20');
+                nav.classList.add('h-16');
+            } else {
+                nav.classList.remove('shadow-2xl');
+                nav.classList.add('h-20');
+                nav.classList.remove('h-16');
+            }
+        });
+    </script>
+</body>
+</html>

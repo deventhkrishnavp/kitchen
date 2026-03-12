@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gallery | R Vaibhava Cafe{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-24 bg-brand-cream min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-brand-red font-bold tracking-widest uppercase mb-2 block italic">Visual Experience</span>
+            <h1 class="text-5xl md:text-6xl font-serif font-bold text-brand-black">Our Gallery</h1>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Gallery Item 1 -->
+            <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/dish1.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+            <!-- Gallery Item 2 -->
+            <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/hero.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+            <!-- Gallery Item 3 -->
+            <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/about.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+            <!-- Repeated for layout demo -->
+             <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/dish2.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+            <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/dish3.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+            <div class="relative group overflow-hidden rounded-3xl h-80 shadow-xl">
+                <img src="{% static 'images/dish4.png' %}" alt="Gallery Item" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute inset-0 bg-brand-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-3xl"><i class="fas fa-search-plus"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

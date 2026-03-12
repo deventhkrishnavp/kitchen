@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Menu | R Vaibhava Cafe{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-24 bg-brand-cream min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-brand-red font-bold tracking-widest uppercase mb-2 block italic">Delicious Varieties</span>
+            <h1 class="text-5xl md:text-6xl font-serif font-bold text-brand-black">Our Menu</h1>
+        </div>
+
+        <!-- Menu Categories -->
+        <div class="flex flex-wrap justify-center gap-4 mb-16">
+            <button class="bg-brand-red text-white px-8 py-2 rounded-full font-bold shadow-lg">All</button>
+            <button class="bg-white text-brand-black hover:bg-brand-red hover:text-white px-8 py-2 rounded-full font-bold transition-all shadow-md">Snacks</button>
+            <button class="bg-white text-brand-black hover:bg-brand-red hover:text-white px-8 py-2 rounded-full font-bold transition-all shadow-md">Arabic Dishes</button>
+            <button class="bg-white text-brand-black hover:bg-brand-red hover:text-white px-8 py-2 rounded-full font-bold transition-all shadow-md">Main Course</button>
+            <button class="bg-white text-brand-black hover:bg-brand-red hover:text-white px-8 py-2 rounded-full font-bold transition-all shadow-md">Beverages</button>
+        </div>
+
+        <!-- Dynamic Menu Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% comment %} 
+                This section is prepared for Django Backend. 
+                Example loop for the restaurant owner to manage items via Admin Panel.
+            {% endcomment %}
+            
+            {% if menu_items %}
+                {% for item in menu_items %}
+                <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-brand-red/5 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-xl font-bold italic group-hover:text-brand-red transition-colors">{{ item.name }}</h4>
+                        <span class="text-brand-red font-bold">₹{{ item.price }}</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">{{ item.description }}</p>
+                    <button onclick="addToCart('{{ item.name }}', {{ item.price }})" class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-red transition-all">
+                        Add to Order
+                    </button>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- Static Fallback / placeholders for initial sale demo -->
+                <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-brand-red/5 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-xl font-bold italic group-hover:text-brand-red transition-colors">Beef Roast</h4>
+                        <span class="text-brand-red font-bold">₹180</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">Slow-cooked beef in traditional Kerala spices with roasted coconut.</p>
+                    <button class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-red transition-all">Add to Order</button>
+                </div>
+                <!-- More items can follow same pattern -->
+                 <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-brand-red/5 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-xl font-bold italic group-hover:text-brand-red transition-colors">Special Shawarma</h4>
+                        <span class="text-brand-red font-bold">₹90</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">Our signature shawarma with extra tahini and spicy sauce.</p>
+                    <button class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-red transition-all">Add to Order</button>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all border border-brand-red/5 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <h4 class="text-xl font-bold italic group-hover:text-brand-red transition-colors">Chicken Alfaham</h4>
+                        <span class="text-brand-red font-bold">₹220</span>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">Charcoal grilled chicken marinated in Arabian spices.</p>
+                    <button class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-red transition-all">Add to Order</button>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

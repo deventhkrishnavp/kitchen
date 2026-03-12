@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reviews | R Vaibhava Cafe{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-24 bg-brand-cream min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-brand-red font-bold tracking-widest uppercase mb-2 block italic">Testimonials</span>
+            <h1 class="text-5xl md:text-6xl font-serif font-bold text-brand-black">What Our Guests Say</h1>
+            <div class="mt-4 flex items-center justify-center gap-2">
+                <span class="text-3xl font-bold">5.0</span>
+                <div class="text-brand-gold text-2xl">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <span class="text-gray-500 font-bold">(500+ Reviews)</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% if reviews %}
+                {% for review in reviews %}
+                <div class="bg-white p-8 rounded-3xl shadow-xl relative border border-brand-red/5">
+                    <div class="absolute -top-4 -left-4 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white text-2xl">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="mb-4 text-brand-gold">
+                        {% for i in "12345" %}
+                            <i class="fas fa-star text-sm"></i>
+                        {% endfor %}
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">"{{ review.comment }}"</p>
+                    <div class="flex items-center gap-4 border-t pt-6">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-brand-red">
+                            {{ review.name|slice:":1" }}
+                        </div>
+                        <div>
+                            <h4 class="font-bold">{{ review.name }}</h4>
+                            <span class="text-xs text-brand-red font-bold uppercase">Happy Customer</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- demo reviews -->
+                <div class="bg-white p-8 rounded-3xl shadow-xl relative border border-brand-red/5">
+                    <div class="absolute -top-4 -left-4 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white text-2xl">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="mb-4 text-brand-gold">
+                        <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">"The beef roast here is legendary! Perfect spice level and the porota is so flaky. Definitely the best spot in S.N. Puram."</p>
+                    <div class="flex items-center gap-4 border-t pt-6">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-brand-red">R</div>
+                        <div>
+                            <h4 class="font-bold">Rahul Das</h4>
+                            <span class="text-xs text-brand-red font-bold uppercase">Happy Customer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-xl relative border border-brand-red/5">
+                    <div class="absolute -top-4 -left-4 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white text-2xl">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="mb-4 text-brand-gold">
+                        <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">"Love their Alfaham Mandi. The charcoal flavor is amazing. It's my favorite late-night craving spot as they are open till 2 AM!"</p>
+                    <div class="flex items-center gap-4 border-t pt-6">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-brand-red">A</div>
+                        <div>
+                            <h4 class="font-bold">Anjali Menon</h4>
+                            <span class="text-xs text-brand-red font-bold uppercase">Happy Customer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-xl relative border border-brand-red/5">
+                    <div class="absolute -top-4 -left-4 w-12 h-12 bg-brand-red rounded-full flex items-center justify-center text-white text-2xl">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="mb-4 text-brand-gold">
+                        <i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i><i class="fas fa-star text-sm"></i>
+                    </div>
+                    <p class="text-gray-700 italic mb-6 leading-relaxed">"Very affordable and generous portions. The staff is extremely friendly. Highly recommended for family dinners."</p>
+                    <div class="flex items-center gap-4 border-t pt-6">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center font-bold text-brand-red">S</div>
+                        <div>
+                            <h4 class="font-bold">Suresh Babu</h4>
+                            <span class="text-xs text-brand-red font-bold uppercase">Happy Customer</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

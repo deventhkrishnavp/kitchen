@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Online | R Vaibhava Cafe{% endblock %}
+
+{% block content %}
+<section class="pt-32 pb-24 bg-brand-cream min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-serif font-bold text-brand-black">Online Ordering</h1>
+            <p class="text-gray-600 mt-4">Safe, fast, and delicious food delivered or ready for pickup.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <!-- Order Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white p-8 rounded-3xl shadow-xl">
+                    <h3 class="text-2xl font-bold mb-8 border-b pb-4 italic">Checkout Details</h3>
+                    <form method="POST" class="space-y-6">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                                <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-red outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-red outline-none transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Delivery Address</label>
+                            <textarea name="address" rows="3" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-red outline-none transition-all"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Order Notes (Optional)</label>
+                            <input type="text" name="notes" placeholder="Extra spicy, no mayo, etc." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-red outline-none transition-all">
+                        </div>
+                        
+                        <div class="pt-4">
+                            <h4 class="font-bold mb-4">Payment Method</h4>
+                            <div class="flex gap-4">
+                                <label class="flex-1 border p-4 rounded-xl flex items-center gap-3 cursor-pointer hover:border-brand-red transition-all">
+                                    <input type="radio" name="payment" value="cod" checked class="text-brand-red">
+                                    <span class="font-bold text-sm">Cash on Delivery</span>
+                                </label>
+                                <label class="flex-1 border p-4 rounded-xl flex items-center gap-3 cursor-pointer hover:border-brand-red transition-all">
+                                    <input type="radio" name="payment" value="upi" class="text-brand-red">
+                                    <span class="font-bold text-sm">UPI / Online</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-red text-white py-4 rounded-full font-bold text-lg hover:bg-black transition-all shadow-xl mt-8">
+                            Place Order Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Summary Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-brand-black text-white p-8 rounded-3xl shadow-xl sticky top-28">
+                    <h3 class="text-2xl font-bold mb-8 border-b border-white/10 pb-4 italic">Your Order</h3>
+                    
+                    <div id="cart-list" class="space-y-4 mb-8 max-h-[400px] overflow-y-auto pr-2">
+                        <!-- Items will be rendered here by JS -->
+                        <p class="text-center opacity-50 py-10" id="empty-cart-msg">Your cart is empty.</p>
+                    </div>
+
+                    <div class="space-y-2 border-t border-white/10 pt-6">
+                        <div class="flex justify-between opacity-70">
+                            <span>Subtotal</span>
+                            <span id="order-subtotal">₹0</span>
+                        </div>
+                        <div class="flex justify-between opacity-70">
+                            <span>Delivery</span>
+                            <span id="order-delivery">₹20</span>
+                        </div>
+                        <div class="flex justify-between text-xl font-bold pt-4 text-brand-red">
+                            <span>Total</span>
+                            <span id="order-total">₹20</span>
+                        </div>
+                    </div>
+
+                    <script>
+                        function renderOrderPageCart() {
+                            const cartList = document.getElementById('cart-list');
+                            const subtotalEl = document.getElementById('order-subtotal');
+                            const totalEl = document.getElementById('order-total');
+                            const emptyMsg = document.getElementById('empty-cart-msg');
+                            
+                            const cartData = JSON.parse(localStorage.getItem('cafeCart')) || [];
+                            
+                            if (cartData.length === 0) {
+                                emptyMsg.classList.remove('hidden');
+                                cartList.innerHTML = '<p class="text-center opacity-50 py-10" id="empty-cart-msg">Your cart is empty.</p>';
+                                subtotalEl.innerText = '₹0';
+                                totalEl.innerText = '₹20';
+                                return;
+                            }
+
+                            emptyMsg.classList.add('hidden');
+                            cartList.innerHTML = '';
+                            
+                            let subtotal = 0;
+                            
+                            cartData.forEach((item, index) => {
+                                subtotal += item.price * item.quantity;
+                                const itemEl = document.createElement('div');
+                                itemEl.className = 'flex justify-between items-center text-sm border-b border-white/5 pb-3';
+                                itemEl.innerHTML = `
+                                    <div class="flex-1">
+                                        <p class="font-bold">${item.name} <span class="text-brand-red ml-2">x${item.quantity}</span></p>
+                                        <p class="text-xs opacity-50">₹${item.price} each</p>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="font-bold">₹${item.price * item.quantity}</span>
+                                        <button onclick="removeOne('${item.name}')" class="text-brand-red hover:text-white transition-colors">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </button>
+                                    </div>
+                                `;
+                                cartList.appendChild(itemEl);
+                            });
+
+                            subtotalEl.innerText = `₹${subtotal}`;
+                            totalEl.innerText = `₹${subtotal + 20}`;
+                        }
+
+                        function removeOne(name) {
+                            let cartData = JSON.parse(localStorage.getItem('cafeCart')) || [];
+                            const index = cartData.findIndex(i => i.name === name);
+                            
+                            if (index !== -1) {
+                                if (cartData[index].quantity > 1) {
+                                    cartData[index].quantity -= 1;
+                                } else {
+                                    cartData.splice(index, 1);
+                                }
+                                localStorage.setItem('cafeCart', JSON.stringify(cartData));
+                                renderOrderPageCart();
+                                // Also trigger global UI update if necessary
+                                if (window.updateCartUI) window.updateCartUI();
+                            }
+                        }
+
+                        window.addEventListener('load', renderOrderPageCart);
+                        window.addEventListener('cartUpdated', renderOrderPageCart);
+                    </script>
+
+                    <div class="mt-8 bg-white/5 p-4 rounded-2xl flex items-center gap-4">
+                        <i class="fas fa-truck text-brand-red text-2xl"></i>
+                        <div>
+                            <p class="text-sm font-bold">Estimated Delivery</p>
+                            <p class="text-xs opacity-60">25 - 40 minutes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
