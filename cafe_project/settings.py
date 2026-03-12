@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-r5^6((!h(@t8c#f19t@nozurf3rml*hrhjlfm(*j1c7icgv8+!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kitchen-2-ojkz.onrender.com']
+ALLOWED_HOSTS = [
+    "kitchen-2-ojkz.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
 
 
 # Application definition
